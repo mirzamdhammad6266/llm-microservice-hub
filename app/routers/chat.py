@@ -1,15 +1,22 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, status
 
-router = APIRouter(prefix="/chat", tags=["chat"])
+from app.models.schemas import ChatRequest, ChatResponse
+from app.services.llm_client import llm_client
 
-class ChatRequest(BaseModel):
-    prompt: str
+router = APIRouter()
 
-class ChatResponse(BaseModel):
-    answer: str
 
-@router.post("/", response_model=ChatResponse)
-async def chat(request: ChatRequest):
-    # For now, return a simple placeholder response
-    return ChatResponse(answer=f"Placeholder LLM response for: {request.prompt}")
+@router.post("/chat", response_model=ChatResponse)
+async def chat_endpoint(payload: ChatRequest):
+    """
+    Chat endpoint that forwards the user message to the LLM client
+    and returns a generated reply.
+    """
+    if not payload.message.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Message must not be empty.",
+        )
+
+    reply = await llm_client.generate_reply(payload.message)
+    return ChatResponse(reply=reply)

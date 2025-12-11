@@ -1,7 +1,7 @@
 # 🧠 LLM Microservice Hub
 
 A production-grade **FastAPI + AsyncIO** microservice designed for Large Language Model (LLM) integrations.  
-This service provides API endpoints for **chat completions**, **embeddings**, and includes an extendable structure for future AI workflows such as async pipelines, rate-limited LLM calls, and background processing.  
+This service provides API endpoints for **chat completions**, **embeddings**, and includes an extendable structure for future AI workflows such as async pipelines, rate-limited LLM calls, and background processing.
 
 This project demonstrates clean backend engineering practices, modular design, and async-first architectures used in modern AI applications.
 
@@ -28,7 +28,7 @@ llm-microservice-hub/
 ├── app/                     # FastAPI entrypoint, router mounting
 │   ├── main.py
 │   │
-│   ├── routers/             # API routers
+│   ├── routers/
 │   │   ├── chat.py          # Chat completion endpoint
 │   │   └── embeddings.py    # Embeddings endpoint
 │   │
@@ -43,7 +43,7 @@ llm-microservice-hub/
 
 ---
 
-## ▶️ Run Locally (Example Command)
+## ▶️ Run Locally
 
 ```bash
 uvicorn app.main:app --reload
@@ -57,14 +57,14 @@ uvicorn app.main:app --reload
 
 ### **1. POST /chat**
 
-#### ✅ Request  
+#### Request  
 ```json
 {
   "message": "Hello!"
 }
 ```
 
-#### 🔁 Example Response  
+#### Example Response  
 ```json
 {
   "reply": "Hi! How can I assist you today?"
@@ -75,17 +75,17 @@ uvicorn app.main:app --reload
 
 ### **2. POST /embeddings**
 
-#### ✅ Request  
+#### Request  
 ```json
 {
   "text": "Machine learning is powerful."
 }
 ```
 
-#### 🔁 Example Response  
+#### Example Response  
 ```json
 {
-  "embedding": [0.123, 0.552, 0.982, ...]
+  "embedding": [0.123, 0.552, 0.982, 0.441]
 }
 ```
 
@@ -93,12 +93,12 @@ uvicorn app.main:app --reload
 
 ## 🧩 Extending With a Real LLM Provider
 
-Update `services/llm_client.py` to integrate:
+Modify `services/llm_client.py` to integrate:
 
-- **OpenAI**  
-- **Anthropic Claude**  
-- **Groq**  
-- **Custom local/hosted LLM models**
+- **OpenAI API**
+- **Anthropic Claude**
+- **Groq LLM**
+- **Custom / self-hosted models**
 
 The architecture is intentionally designed so developers can easily replace the placeholder implementation with a real LLM backend.
 
@@ -109,12 +109,11 @@ The architecture is intentionally designed so developers can easily replace the 
 - Python 3.10+  
 - FastAPI  
 - AsyncIO  
-- Pydantic  
 - Uvicorn  
+- Pydantic  
 
 ---
 
 ## 📌 Status
 
-This repository is part of a larger ecosystem built for LLM engineering roles, showcasing production-level backend design and AI integration patterns.
-
+This project is part of an LLM engineering portfolio demonstrating production-grade backend practices, async patterns, and AI integration workflows.
